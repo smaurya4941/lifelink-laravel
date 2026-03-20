@@ -1,11 +1,92 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@layer base {
+    :root {
+        --ll-bg: 247 249 252;
+        --ll-card: 255 255 255;
+        --ll-ink: 17 24 39;
+        --ll-muted: 71 85 105;
+        --ll-primary: 225 29 72;
+        --ll-primary-strong: 190 24 93;
+        --ll-ring: 251 113 133;
+    }
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        color: rgb(var(--ll-ink));
+        background:
+            radial-gradient(1200px 600px at 5% -20%, rgba(251, 113, 133, 0.20), transparent 55%),
+            radial-gradient(1200px 600px at 95% -15%, rgba(244, 63, 94, 0.18), transparent 50%),
+            rgb(var(--ll-bg));
+        font-family: "Instrument Sans", "Segoe UI", Tahoma, sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        letter-spacing: -0.01em;
+    }
+
+    a {
+        transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    }
+
+    input,
+    select,
+    textarea {
+        border-radius: 0.8rem;
+    }
+}
+
+@layer components {
+    .ll-shell {
+        @apply relative min-h-screen;
+    }
+
+    .ll-surface {
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.94));
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+        border-radius: 1rem;
+    }
+
+    .ll-header-card {
+        background: linear-gradient(120deg, rgba(244, 63, 94, 0.95), rgba(225, 29, 72, 0.95));
+        @apply rounded-2xl px-6 py-6 text-white shadow-lg;
+    }
+
+    .ll-btn-primary {
+        @apply inline-flex items-center rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-300 focus:ring-offset-2;
+    }
+
+    .ll-btn-soft {
+        @apply inline-flex items-center rounded-xl border border-rose-200 bg-white px-4 py-2.5 text-sm font-semibold text-rose-700 hover:bg-rose-50 focus:outline-none focus:ring-2 focus:ring-rose-200 focus:ring-offset-2;
+    }
+
+    .ll-badge {
+        @apply inline-flex items-center rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-rose-700;
+    }
+}
+
+@layer utilities {
+    .ll-fade-up {
+        animation: ll-fade-up 360ms ease-out both;
+    }
+}
+
+@keyframes ll-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

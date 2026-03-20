@@ -11,14 +11,27 @@ class BloodRequest extends Model
 
     protected $fillable = [
         'requester_id',
+        'patient_name',
         'blood_group',
         'units_required',
         'hospital_name',
+        'hospital_address',
         'city',
+        'state',
+        'pincode',
+        'contact_person',
+        'contact_phone',
         'urgency_level',
         'status',
         'required_date',
         'notes',
+        'description',
+        'latitude',
+        'longitude',
+        'radius_km',
+        'confirmed_donor_id',
+        'confirmation_date',
+        'confirmation_notes',
     ];
 
     public function requester()
@@ -29,5 +42,10 @@ class BloodRequest extends Model
     public function matchResults()
     {
         return $this->hasMany(MatchResult::class);
+    }
+
+    public function confirmedDonor()
+    {
+        return $this->belongsTo(User::class, 'confirmed_donor_id');
     }
 }

@@ -17,6 +17,7 @@ class Donation extends Model
         'units_donated',
         'donation_date',
         'status',
+        'is_successful',
         'notes',
     ];
 

@@ -39,6 +39,7 @@ return new class extends Migration
                 'completed',
                 'failed'
             ])->default('completed');
+            $table->boolean('is_successful')->default(true);
 
             $table->text('notes')->nullable();
             $table->timestamps();

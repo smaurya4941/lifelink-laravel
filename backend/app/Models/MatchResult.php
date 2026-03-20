@@ -14,8 +14,17 @@ class MatchResult extends Model
         'donor_id',
         'match_score',
         'distance_km',
+        'success_probability',
+        'health_risk',
+        'scores_breakdown',
         'status',
         'responded_at',
+        'notes',
+    ];
+
+    protected $casts = [
+        'scores_breakdown' => 'array',
+        'responded_at' => 'datetime',
     ];
 
     public function bloodRequest()

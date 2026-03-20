@@ -24,20 +24,24 @@ return new class extends Migration
 
             // AI score (0-100)
             $table->float('match_score');
+            $table->float('success_probability')->nullable();
+            $table->float('health_risk')->nullable();
+            $table->json('scores_breakdown')->nullable();
 
             // Distance from hospital/request location
             $table->float('distance_km')->nullable();
 
             // Donor response status
             $table->enum('status', [
-                'notified',
+                'pending',
                 'accepted',
                 'rejected',
-                'expired'
-            ])->default('notified');
+                'completed'
+            ])->default('pending');
 
             // When donor responded
             $table->timestamp('responded_at')->nullable();
+            $table->text('notes')->nullable();
 
             $table->timestamps();
         });

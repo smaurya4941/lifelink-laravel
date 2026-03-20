@@ -22,9 +22,15 @@ return new class extends Migration
             $table->enum('blood_group', [
                 'A+','A-','B+','B-','AB+','AB-','O+','O-'
             ]);
-            
-            $table->integer('age');
-            $table->integer('weight');
+
+            $table->integer('age')->nullable();
+            $table->integer('weight')->nullable();
+
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('pincode')->nullable();
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });
     }

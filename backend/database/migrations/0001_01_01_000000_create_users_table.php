@@ -15,8 +15,18 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->enum('role', ['donor', 'recipient', 'hospital', 'admin'])->default('recipient');
-            $table->string('phone')->nullable();
+            $table->boolean('is_donor')->default(false);
+            $table->boolean('is_recipient')->default(false);
+
+            $table->string('phone_number')->nullable();
+            $table->date('date_of_birth')->nullable();
+
+            $table->string('address')->nullable();
             $table->string('city')->nullable();
+            $table->string('traditional_state')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('country')->default('India');
+
             $table->boolean('status')->default(true);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

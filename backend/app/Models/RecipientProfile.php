@@ -16,6 +16,11 @@ class RecipientProfile extends Model
         'blood_group',
         'age',
         'weight',
+        'address',
+        'city',
+        'state',
+        'pincode',
+        'is_verified',
     ];
 
     public function user()
@@ -23,4 +28,3 @@ class RecipientProfile extends Model
         return $this->belongsTo(User::class);
     }
 }
-

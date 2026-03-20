@@ -6,11 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,8 +23,17 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'phone',
+        'is_donor',
+        'is_recipient',
+        'phone_number',
+        'date_of_birth',
+        'address',
         'city',
+        'traditional_state',
+        'pincode',
+        'country',
+        'latitude',
+        'longitude',
         'status',
     ];
 
@@ -62,6 +72,25 @@ class User extends Authenticatable
         return $this->hasOne(RecipientProfile::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(UserNotification::class);
+    }
+
+    public function twoFactorAuth()
+    {
+        return $this->hasOne(TwoFactorAuth::class);
+    }
+
+    public function securityEvents()
+    {
+        return $this->hasMany(SecurityEvent::class);
+    }
+
+    public function refreshTokens()
+    {
+        return $this->hasMany(ApiRefreshToken::class);
+    }
 
     public function hospitalProfile()
     {
@@ -80,13 +109,13 @@ class User extends Authenticatable
     }
 
     public function donationsAsDonor()
-{
-    return $this->hasMany(Donation::class, 'donor_id');
-}
+    {
+        return $this->hasMany(Donation::class, 'donor_id');
+    }
 
-public function donationsAsRecipient()
-{
-    return $this->hasMany(Donation::class, 'recipient_id');
-}
+    public function donationsAsRecipient()
+    {
+        return $this->hasMany(Donation::class, 'recipient_id');
+    }
 
 }

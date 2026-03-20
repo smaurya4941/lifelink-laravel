@@ -11,6 +11,9 @@ return new class extends Migration
 
             $table->id();
 
+            // Patient info
+            $table->string('patient_name')->nullable();
+
             // Who created the request (recipient or hospital)
             $table->foreignId('requester_id')
                   ->constrained('users')
@@ -25,8 +28,14 @@ return new class extends Migration
 
             // Hospital details
             $table->string('hospital_name');
+            $table->string('hospital_address')->nullable();
 
             $table->string('city');
+            $table->string('state')->nullable();
+            $table->string('pincode')->nullable();
+
+            $table->string('contact_person')->nullable();
+            $table->string('contact_phone')->nullable();
 
             // GPS coordinates for map feature
             $table->decimal('latitude', 10, 7)->nullable();
@@ -37,15 +46,18 @@ return new class extends Migration
 
             // Urgency classification
             $table->enum('urgency_level', [
-                'normal',
+                'critical',
+                'high',
                 'medium',
-                'critical'
-            ])->default('normal');
+                'low'
+            ])->default('medium');
 
             // Request lifecycle status
             $table->enum('status', [
                 'pending',
                 'matched',
+                'confirmed',
+                'in_progress',
                 'completed',
                 'cancelled'
             ])->default('pending');
@@ -55,6 +67,12 @@ return new class extends Migration
 
             // Extra notes
             $table->text('notes')->nullable();
+            $table->text('description')->nullable();
+
+            // Confirmation workflow
+            $table->foreignId('confirmed_donor_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->timestamp('confirmation_date')->nullable();
+            $table->text('confirmation_notes')->nullable();
 
             $table->timestamps();
         });
@@ -65,4 +83,3 @@ return new class extends Migration
         Schema::dropIfExists('blood_requests');
     }
 };
-
