@@ -1,59 +1,258 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# LifeLink
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+AI-powered blood donation matching platform built with Laravel.
 
-## About Laravel
+LifeLink connects **donors**, **recipients**, **hospitals**, and **admins** through role-based workflows, compatibility scoring, and location-aware discovery to reduce emergency response time.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Configuration](#configuration)
+- [Run the App](#run-the-app)
+- [Testing](#testing)
+- [API Overview](#api-overview)
+- [Role-Based Web Routes](#role-based-web-routes)
+- [Database Notes](#database-notes)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- Role-based authentication and authorization (`donor`, `recipient`, `hospital`, `admin`)
+- Recipient blood request workflow:
+  - Create request
+  - Generate ranked donor matches
+  - Donor accept/reject
+  - Recipient confirms donor
+- Matching engine with weighted scoring:
+  - Blood compatibility
+  - Location proximity
+  - Temporal compatibility
+  - Health risk
+  - Donor reliability
+  - Urgency factor
+- Location intelligence:
+  - Nearby donor search
+  - Nearby request search
+  - Map dataset endpoints
+- Notifications (user inbox + mark read/all read)
+- Security module:
+  - TOTP 2FA setup/enable/disable
+  - Backup code verification
+  - Security event logging
+- Admin panel for users, requests, matches, donations, and notifications
+- Hospital dashboard skeleton (ready for extension)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend:** Laravel 12 (PHP 8.2+)
+- **Frontend:** Blade + Tailwind + Vite
+- **Database:** MySQL
+- **Auth (API):** Laravel Sanctum
+- **Testing:** PHPUnit
 
-## Laravel Sponsors
+## Architecture
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```text
+Laravel (Web + API + Service Layer)
+        |
+      MySQL
+```
 
-### Premium Partners
+Current matching logic runs in the Laravel service layer (`MatchingService`).
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Project Structure
+
+```text
+backend/
+  app/
+    Http/Controllers/        # Web controllers
+    Http/Controllers/api/    # API controllers
+    Models/                  # Eloquent models
+    Services/                # Matching + notification logic
+  database/
+    migrations/              # Schema + compatibility migrations
+  resources/views/           # Blade templates
+```
+
+## Getting Started
+
+1. Clone the repository
+
+```bash
+git clone <your-repo-url>
+cd Lifelink/backend
+```
+
+2. Install dependencies
+
+```bash
+composer install
+npm install
+```
+
+3. Prepare environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Configure your database in `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3307
+DB_DATABASE=lifelink_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+5. Run migrations
+
+```bash
+php artisan migrate --force
+```
+
+## Configuration
+
+Important `.env` keys:
+
+- `APP_URL`
+- `DB_*`
+- `MAIL_*` (for email verification / password reset)
+- `SESSION_DRIVER`, `CACHE_STORE`
+
+## Run the App
+
+Terminal 1:
+
+```bash
+php artisan serve
+```
+
+Terminal 2:
+
+```bash
+npm run dev
+```
+
+Open: `http://127.0.0.1:8000`
+
+## Testing
+
+Run full suite:
+
+```bash
+php artisan test
+```
+
+Run specific tests:
+
+```bash
+php artisan test --filter=AuthenticationTest
+php artisan test --filter=RegistrationTest
+php artisan test --filter=ProfileTest
+```
+
+## API Overview
+
+Base: `/api`
+
+Public:
+
+- `POST /register`
+- `POST /login`
+- `POST /token/refresh`
+- `POST /password-reset`
+- `POST /password-reset/confirm`
+
+Authenticated (Sanctum):
+
+- Dashboard/profile
+  - `GET /dashboard`
+  - `GET /profile`
+  - `PATCH /profile`
+- Donors/recipients
+  - `GET/POST /donors`
+  - `PATCH /donors/{donor}`
+  - `GET/POST /recipients`
+  - `PATCH /recipients/{recipient}`
+- Blood requests
+  - `GET/POST /blood-requests`
+  - `GET/PATCH/DELETE /blood-requests/{bloodRequest}`
+  - `POST /blood-requests/{bloodRequest}/find_matches`
+  - `POST /blood-requests/{bloodRequest}/confirm_donor`
+- Matches/donations
+  - `GET /matches`
+  - `POST /matches/{match}/accept`
+  - `POST /matches/{match}/reject`
+  - `GET/POST/PATCH/DELETE /donation-history`
+- Location/map
+  - `GET /nearby/donors`
+  - `GET /nearby/requests`
+  - `GET /map/data`
+- Notifications/security
+  - `GET /notifications`
+  - `POST /notifications/{notification}/mark_read`
+  - `POST /notifications/mark_all_read`
+  - `GET /security/dashboard`
+  - `GET /security/2fa/setup`
+  - `POST /security/2fa/enable`
+  - `POST /security/2fa/verify`
+  - `POST /security/2fa/disable`
+  - `POST /security/password`
+
+## Role-Based Web Routes
+
+- Donor
+  - `/donor/profile`
+  - `/donor/matches`
+- Recipient
+  - `/recipient/profile`
+  - `/recipient/requests`
+- Hospital
+  - `/hospital/dashboard`
+- Admin
+  - `/admin`
+
+## Database Notes
+
+If you cloned from an older snapshot and get `Unknown column` SQL errors, run:
+
+```bash
+php artisan migrate --force
+```
+
+Recent compatibility migrations include:
+
+- `2026_03_20_080500_sync_users_table_with_current_schema.php`
+- `2026_03_20_082000_sync_donations_table_with_current_schema.php`
+- `2026_03_20_093000_sync_recipient_profiles_table_with_current_schema.php`
+
+## Roadmap
+
+- Complete hospital request management flow (create/manage requests from hospital dashboard)
+- Add hospital verification workflow for admins
+- Add richer analytics and operational reporting
+- Optional: external ML microservice integration for matching
+- CI workflow for lint/test on pull requests
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a pull request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+MIT
