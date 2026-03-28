@@ -1,44 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Admin Dashboard</h2>
-    </x-slot>
-
-    <div class="py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                @foreach([
-                    'Users' => $stats['users'],
-                    'Donors' => $stats['donors'],
-                    'Recipients' => $stats['recipients'],
-                    'Requests' => $stats['requests'],
-                    'Matches' => $stats['matches'],
-                    'Donations' => $stats['donations'],
-                    'Notifications' => $stats['notifications'],
-                ] as $label => $value)
-                    <div class="bg-white p-4 rounded shadow">
-                        <p class="text-sm text-gray-600">{{ $label }}</p>
-                        <p class="text-2xl font-bold">{{ $value }}</p>
-                    </div>
-                @endforeach
+<x-layouts.admin title="Admin Overview">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        @foreach([
+            ['label' => 'Users', 'value' => $stats['users'], 'tone' => 'bg-slate-900 text-white'],
+            ['label' => 'Donors', 'value' => $stats['donors'], 'tone' => 'bg-rose-50 text-rose-900'],
+            ['label' => 'Recipients', 'value' => $stats['recipients'], 'tone' => 'bg-blue-50 text-blue-900'],
+            ['label' => 'Hospitals', 'value' => $stats['hospitals'], 'tone' => 'bg-emerald-50 text-emerald-900'],
+            ['label' => 'Requests', 'value' => $stats['requests'], 'tone' => 'bg-amber-50 text-amber-900'],
+            ['label' => 'Matches', 'value' => $stats['matches'], 'tone' => 'bg-fuchsia-50 text-fuchsia-900'],
+            ['label' => 'Donations', 'value' => $stats['donations'], 'tone' => 'bg-cyan-50 text-cyan-900'],
+            ['label' => 'Notifications', 'value' => $stats['notifications'], 'tone' => 'bg-indigo-50 text-indigo-900'],
+        ] as $card)
+            <div class="rounded-2xl p-5 shadow-sm {{ $card['tone'] }}">
+                <p class="text-xs font-semibold uppercase tracking-wider opacity-80">{{ $card['label'] }}</p>
+                <p class="mt-2 text-3xl font-extrabold">{{ $card['value'] }}</p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <a href="{{ route('admin.users') }}" class="bg-white p-4 rounded shadow hover:border-red-500 border">
-                    Manage Users
-                </a>
-                <a href="{{ route('admin.requests') }}" class="bg-white p-4 rounded shadow hover:border-red-500 border">
-                    View Requests
-                </a>
-                <a href="{{ route('admin.matches') }}" class="bg-white p-4 rounded shadow hover:border-red-500 border">
-                    View Matches
-                </a>
-                <a href="{{ route('admin.donations') }}" class="bg-white p-4 rounded shadow hover:border-red-500 border">
-                    View Donations
-                </a>
-                <a href="{{ route('admin.notifications') }}" class="bg-white p-4 rounded shadow hover:border-red-500 border">
-                    View Notifications
-                </a>
-            </div>
-        </div>
+        @endforeach
     </div>
-</x-app-layout>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <a href="{{ route('admin.users') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Manage Users</p>
+            <p class="mt-1 text-sm text-slate-600">Change role and account status.</p>
+        </a>
+        <a href="{{ route('admin.requests') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Manage Requests</p>
+            <p class="mt-1 text-sm text-slate-600">Track and update request lifecycle.</p>
+        </a>
+        <a href="{{ route('admin.matches') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Manage Matches</p>
+            <p class="mt-1 text-sm text-slate-600">Review and update match responses.</p>
+        </a>
+        <a href="{{ route('admin.donations') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Manage Donations</p>
+            <p class="mt-1 text-sm text-slate-600">Update donation outcome records.</p>
+        </a>
+        <a href="{{ route('admin.notifications') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Manage Notifications</p>
+            <p class="mt-1 text-sm text-slate-600">Audit and mark read/unread items.</p>
+        </a>
+    </div>
+</x-layouts.admin>

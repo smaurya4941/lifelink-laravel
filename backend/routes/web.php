@@ -50,10 +50,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::get('/requests', [AdminController::class, 'requests'])->name('admin.requests');
+    Route::put('/requests/{bloodRequest}', [AdminController::class, 'updateRequest'])->name('admin.requests.update');
     Route::get('/matches', [AdminController::class, 'matches'])->name('admin.matches');
+    Route::put('/matches/{match}', [AdminController::class, 'updateMatch'])->name('admin.matches.update');
     Route::get('/donations', [AdminController::class, 'donations'])->name('admin.donations');
+    Route::put('/donations/{donation}', [AdminController::class, 'updateDonation'])->name('admin.donations.update');
     Route::get('/notifications', [AdminController::class, 'notifications'])->name('admin.notifications');
+    Route::put('/notifications/{notification}', [AdminController::class, 'updateNotification'])->name('admin.notifications.update');
 });
 
 Route::middleware(['auth', 'role:donor'])->group(function () {

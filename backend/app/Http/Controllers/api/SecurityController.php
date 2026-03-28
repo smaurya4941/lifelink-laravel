@@ -126,7 +126,7 @@ class SecurityController extends Controller
     {
         $request->validate([
             'current_password' => ['required', 'current_password'],
-            'new_password' => ['required', 'string', 'min:8'],
+            'new_password' => ['required', 'string', 'min:6'],
         ]);
 
         $strength = $this->checkPasswordStrength($request->new_password);

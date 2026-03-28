@@ -35,6 +35,6 @@ class RecipientProfileController extends Controller
             $data
         );
 
-        return redirect()->route('recipient.profile.edit')->with('status', 'Recipient profile updated.');
+        return redirect()->route('dashboard')->with('status', 'Recipient profile updated.');
     }
 }

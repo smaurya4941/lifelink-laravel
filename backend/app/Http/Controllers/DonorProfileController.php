@@ -44,7 +44,7 @@ class DonorProfileController extends Controller
             $data
         );
 
-        return redirect()->route('donor.profile.edit')->with('status', 'Donor profile updated.');
+        return redirect()->route('dashboard')->with('status', 'Donor profile updated.');
     }
 
     public function matches(Request $request)
