@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\BloodRequest;
 use App\Models\MatchResult;
-use App\Models\DonorProfile;
 use App\Models\RecipientProfile;
 use App\Services\MatchingService;
 use App\Services\NotificationService;
@@ -76,7 +75,7 @@ class BloodRequestController extends Controller
             }
         }
 
-        return redirect()->route('recipient.requests.show', $bloodRequest)
+        return redirect()->route('requests.show', $bloodRequest)
             ->with('status', 'Blood request created and matches generated.');
     }
 
@@ -88,6 +87,7 @@ class BloodRequestController extends Controller
 
         $matches = MatchResult::with('donor')
             ->where('request_id', $bloodRequest->id)
+            ->where('donor_id', '!=', $request->user()->id)
             ->orderByDesc('match_score')
             ->get();
 
@@ -112,6 +112,10 @@ class BloodRequestController extends Controller
             ->where('request_id', $bloodRequest->id)
             ->firstOrFail();
 
+        if ($match->donor_id === $request->user()->id) {
+            return redirect()->back()->with('error', 'You cannot confirm yourself as donor for your own request.');
+        }
+
         if ($match->status !== 'accepted') {
             return redirect()->back()->with('error', 'Donor has not accepted the match yet.');
         }
@@ -126,12 +130,18 @@ class BloodRequestController extends Controller
         $match->save();
 
         $notificationService = app(NotificationService::class);
+        $confirmationNote = trim((string) ($data['confirmation_notes'] ?? ''));
+        $donorMessage = 'Your donation for ' . ($bloodRequest->patient_name ?? 'a patient') . ' has been confirmed.';
+        if ($confirmationNote !== '') {
+            $donorMessage .= ' Recipient note: ' . $confirmationNote;
+        }
+
         if ($match->donor) {
             $notificationService->create(
                 $match->donor,
                 'DONOR_CONFIRMED',
                 'Your Donation Has Been Confirmed',
-                'Your donation for ' . ($bloodRequest->patient_name ?? 'a patient') . ' has been confirmed.',
+                $donorMessage,
                 $bloodRequest,
                 $match
             );
@@ -146,7 +156,7 @@ class BloodRequestController extends Controller
             $match
         );
 
-        return redirect()->route('recipient.requests.show', $bloodRequest)
+        return redirect()->route('requests.show', $bloodRequest)
             ->with('status', 'Donor confirmed successfully.');
     }
 }

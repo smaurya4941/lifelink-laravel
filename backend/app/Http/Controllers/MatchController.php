@@ -14,6 +14,14 @@ class MatchController extends Controller
             abort(403);
         }
 
+        if ($match->bloodRequest && $match->bloodRequest->requester_id === $request->user()->id) {
+            return redirect()->back()->with('error', 'You cannot accept your own blood request.');
+        }
+
+        if ($match->status !== 'pending') {
+            return redirect()->back()->with('error', 'This match has already been responded to.');
+        }
+
         $match->status = 'accepted';
         $match->responded_at = now();
         $match->save();
@@ -39,6 +47,14 @@ class MatchController extends Controller
     {
         if ($match->donor_id !== $request->user()->id) {
             abort(403);
+        }
+
+        if ($match->bloodRequest && $match->bloodRequest->requester_id === $request->user()->id) {
+            return redirect()->back()->with('error', 'You cannot respond to your own blood request.');
+        }
+
+        if ($match->status !== 'pending') {
+            return redirect()->back()->with('error', 'This match has already been responded to.');
         }
 
         $match->status = 'rejected';

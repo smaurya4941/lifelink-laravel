@@ -5,6 +5,7 @@
             ['label' => 'Donors', 'value' => $stats['donors'], 'tone' => 'bg-rose-50 text-rose-900'],
             ['label' => 'Recipients', 'value' => $stats['recipients'], 'tone' => 'bg-blue-50 text-blue-900'],
             ['label' => 'Hospitals', 'value' => $stats['hospitals'], 'tone' => 'bg-emerald-50 text-emerald-900'],
+            ['label' => 'Verified Hospitals', 'value' => $stats['verified_hospitals'] ?? 0, 'tone' => 'bg-teal-50 text-teal-900'],
             ['label' => 'Requests', 'value' => $stats['requests'], 'tone' => 'bg-amber-50 text-amber-900'],
             ['label' => 'Matches', 'value' => $stats['matches'], 'tone' => 'bg-fuchsia-50 text-fuchsia-900'],
             ['label' => 'Donations', 'value' => $stats['donations'], 'tone' => 'bg-cyan-50 text-cyan-900'],
@@ -25,6 +26,10 @@
         <a href="{{ route('admin.requests') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
             <p class="text-lg font-bold text-slate-900">Manage Requests</p>
             <p class="mt-1 text-sm text-slate-600">Track and update request lifecycle.</p>
+        </a>
+        <a href="{{ route('admin.hospitals') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
+            <p class="text-lg font-bold text-slate-900">Verify Hospitals</p>
+            <p class="mt-1 text-sm text-slate-600">Approve or reject hospital organizations.</p>
         </a>
         <a href="{{ route('admin.matches') }}" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-rose-300 hover:shadow">
             <p class="text-lg font-bold text-slate-900">Manage Matches</p>

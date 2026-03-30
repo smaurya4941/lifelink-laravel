@@ -32,10 +32,10 @@ class RecipientProfileVisibilityTest extends TestCase
             'pincode' => '400001',
         ]);
 
-        $response = $this->actingAs($user)->get(route('recipient.requests.index'));
+        $response = $this->actingAs($user)->get(route('requests.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Recipient Profile Snapshot');
+        $response->assertSee('Profile Snapshot');
         $response->assertSee('9999999999');
         $response->assertSee('Mumbai');
     }

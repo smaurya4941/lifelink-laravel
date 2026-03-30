@@ -13,4 +13,10 @@ class MapController extends Controller
         $controller = new WebMapController();
         return $controller->data($request);
     }
+
+    public function markers(Request $request)
+    {
+        $controller = new WebMapController();
+        return $controller->markers($request);
+    }
 }

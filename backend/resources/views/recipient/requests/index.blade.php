@@ -11,8 +11,8 @@
 
             <div class="bg-white shadow sm:rounded-lg p-6">
                 <div class="flex items-center justify-between gap-3">
-                    <h3 class="text-lg font-semibold">Recipient Profile Snapshot</h3>
-                    <a href="{{ route('recipient.profile.edit') }}" class="px-3 py-2 bg-slate-100 text-slate-700 rounded">Edit Profile</a>
+                    <h3 class="text-lg font-semibold">Profile Snapshot</h3>
+                    <a href="{{ route('profile.edit') }}" class="px-3 py-2 bg-slate-100 text-slate-700 rounded">Edit Profile</a>
                 </div>
 
                 @if($profile)
@@ -30,7 +30,7 @@
             </div>
 
             <div class="flex justify-end mb-4">
-                <a href="{{ route('recipient.requests.create') }}" class="px-4 py-2 bg-green-600 text-white rounded">Create Request</a>
+                <a href="{{ route('requests.create') }}" class="px-4 py-2 bg-green-600 text-white rounded">Create Request</a>
             </div>
 
             <div class="bg-white shadow sm:rounded-lg p-6">
@@ -46,7 +46,7 @@
                                         <p class="text-sm text-gray-600">{{ $req->city }} - {{ $req->blood_group }}</p>
                                         <p class="text-sm text-gray-600">Urgency: {{ ucfirst($req->urgency_level) }}</p>
                                     </div>
-                                    <a class="text-blue-600" href="{{ route('recipient.requests.show', $req) }}">View Matches</a>
+                                    <a class="text-blue-600" href="{{ route('requests.show', $req) }}">View Matches</a>
                                 </div>
                             </div>
                         @endforeach

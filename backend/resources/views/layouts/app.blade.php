@@ -37,7 +37,11 @@
 
         <!-- Page Content -->
         <main class="pb-10">
-            {{ $slot }}
+            @isset($slot)
+                {{ $slot }}
+            @else
+                @yield('content')
+            @endisset
         </main>
     </div>
 </body>

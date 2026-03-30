@@ -37,7 +37,7 @@ class DonorController extends Controller
 
         $profile = DonorProfile::create($data);
 
-        $request->user()->update(['is_donor' => true, 'role' => 'donor']);
+        $request->user()->update(['is_donor' => true]);
 
         return response()->json($profile, 201);
     }

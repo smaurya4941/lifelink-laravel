@@ -75,4 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/nearby/requests', [NearbyController::class, 'requests']);
 
     Route::get('/map/data', [MapController::class, 'data']);
+
+    Route::get('/map/markers', [MapController::class, 'markers']);
 });

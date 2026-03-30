@@ -32,18 +32,27 @@ class AuthenticatedSessionController extends Controller
 
         // return redirect()->intended(route('dashboard', absolute: false));
 
-        switch ($user->role) {
-            case 'donor':
-                return redirect()->route('donor.matches');
-            case 'recipient':
-                return redirect()->route('recipient.requests.index');
-            case 'hospital':
-                return redirect()->route('hospital.dashboard');
-            case 'admin':
-                return redirect()->route('admin.index');
-            default:
-                return redirect()->route('dashboard');
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.index');
         }
+
+        if ($user->hasCapability('hospital')) {
+            return redirect()->route('hospital.dashboard');
+        }
+
+        if (!$user->hasCapability('donor') && !$user->hasCapability('recipient')) {
+            return redirect()->route('onboarding.capabilities.edit');
+        }
+
+        if ($user->hasCapability('donor') && !$user->hasCapability('recipient')) {
+            return redirect()->route('matches.index');
+        }
+
+        if ($user->hasCapability('recipient') && !$user->hasCapability('donor')) {
+            return redirect()->route('requests.index');
+        }
+
+        return redirect()->route('dashboard');
     }
 
     /**

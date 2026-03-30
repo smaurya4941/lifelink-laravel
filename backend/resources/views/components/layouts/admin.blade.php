@@ -27,6 +27,7 @@
                                 $links = [
                                     ['route' => 'admin.index', 'label' => 'Overview'],
                                     ['route' => 'admin.users', 'label' => 'Users'],
+                                    ['route' => 'admin.hospitals', 'label' => 'Hospitals'],
                                     ['route' => 'admin.requests', 'label' => 'Requests'],
                                     ['route' => 'admin.matches', 'label' => 'Matches'],
                                     ['route' => 'admin.donations', 'label' => 'Donations'],

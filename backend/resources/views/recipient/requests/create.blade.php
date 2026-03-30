@@ -5,7 +5,7 @@
 
     <div class="py-8">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('recipient.requests.store') }}" class="bg-white shadow sm:rounded-lg p-6 space-y-4">
+            <form method="POST" action="{{ route('requests.store') }}" class="bg-white shadow sm:rounded-lg p-6 space-y-4">
                 @csrf
 
                 <div>

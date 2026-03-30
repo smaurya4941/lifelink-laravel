@@ -42,6 +42,7 @@ class MatchingService
         $donors = DonorProfile::with('user')
             ->whereIn('blood_group', $compatibleGroups)
             ->where('availability_status', true)
+            ->where('user_id', '!=', $request->requester_id)
             ->get();
 
         return $donors->map(function (DonorProfile $donor) use ($request) {
@@ -64,6 +65,7 @@ class MatchingService
 
     public function createMatchResults(BloodRequest $request, int $limit = 10): void
     {
+        $request->loadMissing('requester');
         MatchResult::where('request_id', $request->id)->delete();
 
         $matches = $this->findMatches($request, $limit);
@@ -92,6 +94,7 @@ class MatchingService
             'health_risk' => 0,
             'donor_reliability' => 0,
             'urgency_factor' => 0,
+            'institutional_priority' => 0,
             'overall_score' => 0,
         ];
 
@@ -130,6 +133,12 @@ class MatchingService
         ];
         $scores['urgency_factor'] = $urgencyWeights[$request->urgency_level] ?? 3;
 
+        // Verified hospital requests receive additional routing priority.
+        if ($request->requester?->hasCapability('hospital')) {
+            $hospital = $request->requester->hospital;
+            $scores['institutional_priority'] = $hospital && $hospital->isVerified() ? 3 : 1;
+        }
+
         $scores['overall_score'] = round(array_sum([
             $scores['blood_compatibility'],
             $scores['location_proximity'],
@@ -137,6 +146,7 @@ class MatchingService
             $scores['health_risk'],
             $scores['donor_reliability'],
             $scores['urgency_factor'],
+            $scores['institutional_priority'],
         ]), 2);
 
         return $scores;

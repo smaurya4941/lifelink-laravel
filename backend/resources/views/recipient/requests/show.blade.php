@@ -14,8 +14,20 @@
 
             <div class="bg-white shadow sm:rounded-lg p-6">
                 <h3 class="text-lg font-semibold">{{ $bloodRequest->hospital_name }}</h3>
-                <p class="text-sm text-gray-600">{{ $bloodRequest->city }} · {{ $bloodRequest->blood_group }}</p>
+                <p class="text-sm text-gray-600">{{ $bloodRequest->city }} - {{ $bloodRequest->blood_group }}</p>
                 <p class="text-sm text-gray-600">Urgency: {{ ucfirst($bloodRequest->urgency_level) }}</p>
+                @if($bloodRequest->status === 'confirmed')
+                    <div class="mt-3 rounded border border-emerald-200 bg-emerald-50 p-3 text-sm">
+                        <p class="font-semibold text-emerald-800">Donor Confirmed</p>
+                        <p class="text-emerald-700">Confirmed Donor ID: {{ $bloodRequest->confirmed_donor_id ?? 'N/A' }}</p>
+                        @if($bloodRequest->confirmation_date)
+                            <p class="text-emerald-700">Confirmed At: {{ \Illuminate\Support\Carbon::parse($bloodRequest->confirmation_date)->format('Y-m-d H:i') }}</p>
+                        @endif
+                        @if($bloodRequest->confirmation_notes)
+                            <p class="mt-1 text-emerald-800"><span class="font-semibold">Your Note:</span> {{ $bloodRequest->confirmation_notes }}</p>
+                        @endif
+                    </div>
+                @endif
             </div>
 
             <div class="bg-white shadow sm:rounded-lg p-6">
@@ -36,7 +48,7 @@
                                 </div>
 
                                 @if($match->status === 'accepted')
-                                    <form method="POST" action="{{ route('recipient.requests.confirm', $bloodRequest) }}" class="mt-3">
+                                    <form method="POST" action="{{ route('requests.confirm', $bloodRequest) }}" class="mt-3">
                                         @csrf
                                         <input type="hidden" name="match_id" value="{{ $match->id }}">
                                         <div class="flex flex-col md:flex-row gap-2">

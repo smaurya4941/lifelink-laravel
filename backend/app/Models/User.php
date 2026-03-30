@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'is_donor',
         'is_recipient',
+        'is_hospital',
         'phone_number',
         'date_of_birth',
         'address',
@@ -57,7 +58,46 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_donor' => 'boolean',
+            'is_recipient' => 'boolean',
+            'is_hospital' => 'boolean',
+            'status' => 'boolean',
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function hasCapability(string $capability): bool
+    {
+        return match ($capability) {
+            'donor' => (bool) $this->is_donor,
+            'recipient' => (bool) $this->is_recipient,
+            'hospital' => (bool) $this->is_hospital || $this->role === 'hospital',
+            'admin' => $this->isAdmin(),
+            default => false,
+        };
+    }
+
+    public function capabilityLabels(): array
+    {
+        $labels = [];
+        if ($this->hasCapability('donor')) {
+            $labels[] = 'Donor';
+        }
+        if ($this->hasCapability('recipient')) {
+            $labels[] = 'Recipient';
+        }
+        if ($this->hasCapability('hospital')) {
+            $labels[] = 'Hospital';
+        }
+        if ($this->isAdmin()) {
+            $labels[] = 'Admin';
+        }
+
+        return $labels;
     }
 
     //adding relationship one to one mapping
@@ -94,7 +134,13 @@ class User extends Authenticatable
 
     public function hospitalProfile()
     {
-        return $this->hasOne(HospitalProfile::class);
+        // Backward-compatible alias; hospital is the canonical domain relation.
+        return $this->hospital();
+    }
+
+    public function hospital()
+    {
+        return $this->hasOne(Hospital::class);
     }
 
     public function bloodRequests()

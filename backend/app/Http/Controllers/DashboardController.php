@@ -12,6 +12,15 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
+        if (
+            !$user->isAdmin()
+            && !$user->hasCapability('hospital')
+            && !$user->hasCapability('donor')
+            && !$user->hasCapability('recipient')
+        ) {
+            return redirect()->route('onboarding.capabilities.edit');
+        }
+
         $recentRequests = BloodRequest::where('requester_id', $user->id)
             ->latest()
             ->take(5)

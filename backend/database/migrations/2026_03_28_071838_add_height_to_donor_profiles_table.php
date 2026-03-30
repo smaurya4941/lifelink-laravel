@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('donor_profiles', function (Blueprint $table) {
-            //
-            $table->integer('height')->nullable();
-
-        });
+        if (!Schema::hasColumn('donor_profiles', 'height')) {
+            Schema::table('donor_profiles', function (Blueprint $table) {
+                $table->integer('height')->nullable();
+            });
+        }
     }
 
     /**
@@ -23,10 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('donor_profiles', function (Blueprint $table) {
-            //
-            $table->dropColumn('height');
-
-        });
+        if (Schema::hasColumn('donor_profiles', 'height')) {
+            Schema::table('donor_profiles', function (Blueprint $table) {
+                $table->dropColumn('height');
+            });
+        }
     }
 };

@@ -12,13 +12,29 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donor_profiles', function (Blueprint $table) {
-            //
-            $table->string('medical_conditions')->nullable();
-            $table->string('emergency_contact')->nullable();
-            $table->text('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('pincode', 10);
+            if (!Schema::hasColumn('donor_profiles', 'medical_conditions')) {
+                $table->string('medical_conditions')->nullable();
+            }
+
+            if (!Schema::hasColumn('donor_profiles', 'emergency_contact')) {
+                $table->string('emergency_contact')->nullable();
+            }
+
+            if (!Schema::hasColumn('donor_profiles', 'address')) {
+                $table->text('address')->nullable();
+            }
+
+            if (!Schema::hasColumn('donor_profiles', 'city')) {
+                $table->string('city')->nullable();
+            }
+
+            if (!Schema::hasColumn('donor_profiles', 'state')) {
+                $table->string('state')->nullable();
+            }
+
+            if (!Schema::hasColumn('donor_profiles', 'pincode')) {
+                $table->string('pincode', 10)->nullable();
+            }
         });
     }
 
@@ -28,13 +44,20 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('donor_profiles', function (Blueprint $table) {
-            //
-            $table->dropColumn('medical_conditions');
-            $table->dropColumn('emergency_contact');
-            $table->dropColumn('address');
-            $table->dropColumn('city');
-            $table->dropColumn('state');
-            $table->dropColumn('pincode');
+            $columns = [
+                'medical_conditions',
+                'emergency_contact',
+                'address',
+                'city',
+                'state',
+                'pincode',
+            ];
+
+            foreach ($columns as $column) {
+                if (Schema::hasColumn('donor_profiles', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
         });
     }
 };

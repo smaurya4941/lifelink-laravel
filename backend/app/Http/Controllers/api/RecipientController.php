@@ -35,7 +35,7 @@ class RecipientController extends Controller
 
         $profile = RecipientProfile::create($data);
 
-        $request->user()->update(['is_recipient' => true, 'role' => 'recipient']);
+        $request->user()->update(['is_recipient' => true]);
 
         return response()->json($profile, 201);
     }

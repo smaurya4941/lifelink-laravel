@@ -18,16 +18,21 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', 'min:6'],
-            'role' => ['required', 'in:donor,recipient,hospital'],
+            'role' => ['required', 'in:donor,recipient,donor_recipient,hospital'],
         ]);
+
+        $isDonor = in_array($data['role'], ['donor', 'donor_recipient'], true);
+        $isRecipient = in_array($data['role'], ['recipient', 'donor_recipient'], true);
+        $isHospital = $data['role'] === 'hospital';
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => $data['role'],
-            'is_donor' => $data['role'] === 'donor',
-            'is_recipient' => $data['role'] === 'recipient',
+            'role' => $isHospital ? 'hospital' : ($isDonor ? 'donor' : 'recipient'),
+            'is_donor' => $isDonor,
+            'is_recipient' => $isRecipient,
+            'is_hospital' => $isHospital,
         ]);
 
         return response()->json($this->issueTokens($user), 201);

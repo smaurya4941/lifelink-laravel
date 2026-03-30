@@ -19,7 +19,12 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        if (!in_array(auth()->user()->role, $roles)) {
+        $user = auth()->user();
+        $authorized = collect($roles)->contains(function (string $requiredRole) use ($user) {
+            return $user->hasCapability($requiredRole);
+        });
+
+        if (!$authorized) {
 
             return redirect()->route('dashboard')
                 ->with('error', 'You are not authorized to access that page.');

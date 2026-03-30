@@ -2,21 +2,11 @@
     <div class="mb-5">
         <p class="ll-badge">Get Started</p>
         <h1 class="mt-2 text-2xl font-extrabold text-slate-900">Create your LifeLink account</h1>
-        <p class="mt-1 text-sm text-slate-500">Join as a donor, recipient, or hospital and start matching faster.</p>
+        <p class="mt-1 text-sm text-slate-500">Create your account in seconds. You can choose donor/recipient options after login.</p>
     </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-4">
         @csrf
-
-        <!-- role  -->
-        <div>
-            <x-input-label for="role" :value="__('Role')" />
-            <select name="role" class="block mt-1 w-full rounded-xl border-slate-300 bg-white/90 text-slate-900 shadow-sm focus:border-rose-300 focus:ring-rose-200">
-                <option value="donor">Donor</option>
-                <option value="recipient">Recipient</option>
-                <option value="hospital">Hospital</option>
-            </select>
-        </div>
 
         <!-- Name -->
         <div>
@@ -65,4 +55,12 @@
             </x-primary-button>
         </div>
     </form>
+
+    <div class="mt-6 rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <p class="text-sm font-semibold text-slate-800">Registering as a hospital?</p>
+        <p class="mt-1 text-xs text-slate-600">Use the dedicated hospital sign-up flow with license and address details.</p>
+        <a href="{{ route('register.hospital') }}" class="mt-3 inline-flex text-sm font-semibold text-rose-700 hover:text-rose-800">
+            Go to Hospital Registration
+        </a>
+    </div>
 </x-guest-layout>

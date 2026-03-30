@@ -209,18 +209,21 @@ Authenticated (Sanctum):
   - `POST /security/2fa/disable`
   - `POST /security/password`
 
-## Role-Based Web Routes
+## Capability-Based Web Routes
 
-- Donor
-  - `/donor/profile`
-  - `/donor/matches`
-- Recipient
-  - `/recipient/profile`
-  - `/recipient/requests`
-- Hospital
+- Core
+  - `/dashboard`
+  - `/profile`
+  - `/requests`
+  - `/matches`
+  - `/map`
+  - `/notifications`
+- Hospital workspace
   - `/hospital/dashboard`
-- Admin
+- Admin workspace
   - `/admin`
+
+Legacy routes (`/donor/*`, `/recipient/*`) are still available temporarily and redirect to canonical routes where applicable.
 
 ## Database Notes
 

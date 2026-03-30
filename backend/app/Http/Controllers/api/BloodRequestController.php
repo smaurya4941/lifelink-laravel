@@ -107,6 +107,7 @@ class BloodRequestController extends Controller
 
         $matches = MatchResult::with('donor')
             ->where('request_id', $bloodRequest->id)
+            ->where('donor_id', '!=', $request->user()->id)
             ->get()
             ->map(function ($match) {
                 return [
@@ -138,6 +139,10 @@ class BloodRequestController extends Controller
         $match = MatchResult::where('id', $data['match_id'])
             ->where('request_id', $bloodRequest->id)
             ->firstOrFail();
+
+        if ($match->donor_id === $request->user()->id) {
+            return response()->json(['detail' => 'You cannot confirm yourself as donor for your own request.'], 422);
+        }
 
         if ($match->status !== 'accepted') {
             return response()->json(['detail' => 'Donor not accepted yet'], 400);
