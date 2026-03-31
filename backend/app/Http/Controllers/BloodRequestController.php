@@ -7,27 +7,53 @@ use App\Models\MatchResult;
 use App\Models\RecipientProfile;
 use App\Services\MatchingService;
 use App\Services\NotificationService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class BloodRequestController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): View
     {
-        $requests = BloodRequest::where('requester_id', $request->user()->id)
+        $requests = BloodRequest::with(['matchResults', 'confirmedDonor'])
+            ->where('requester_id', $request->user()->id)
             ->latest()
             ->get();
 
         $profile = RecipientProfile::where('user_id', $request->user()->id)->first();
+        $activeRequest = $this->resolveActiveRequest($request, $requests);
+        $activeMatches = collect();
+
+        if ($activeRequest) {
+            $activeMatches = MatchResult::with('donor')
+                ->where('request_id', $activeRequest->id)
+                ->where('donor_id', '!=', $request->user()->id)
+                ->orderByDesc('match_score')
+                ->take(5)
+                ->get();
+        }
+
+        $stats = [
+            'total' => $requests->count(),
+            'critical' => $requests->where('urgency_level', 'critical')->whereIn('status', ['pending', 'matched', 'confirmed', 'in_progress'])->count(),
+            'pending' => $requests->where('status', 'pending')->count(),
+            'matched' => $requests->whereIn('status', ['matched', 'confirmed', 'in_progress'])->count(),
+            'completed' => $requests->where('status', 'completed')->count(),
+        ];
 
         return view('recipient.requests.index', [
             'requests' => $requests,
             'profile' => $profile,
+            'activeRequest' => $activeRequest,
+            'activeMatches' => $activeMatches,
+            'stats' => $stats,
         ]);
     }
 
-    public function create()
+    public function create(): RedirectResponse
     {
-        return view('recipient.requests.create');
+        return redirect()->route('requests.index');
     }
 
     public function store(Request $request, MatchingService $matchingService, NotificationService $notificationService)
@@ -158,5 +184,19 @@ class BloodRequestController extends Controller
 
         return redirect()->route('requests.show', $bloodRequest)
             ->with('status', 'Donor confirmed successfully.');
+    }
+
+    private function resolveActiveRequest(Request $request, Collection $requests): ?BloodRequest
+    {
+        $selectedId = $request->integer('request');
+
+        if ($selectedId) {
+            $selected = $requests->firstWhere('id', $selectedId);
+            if ($selected) {
+                return $selected;
+            }
+        }
+
+        return $requests->first();
     }
 }

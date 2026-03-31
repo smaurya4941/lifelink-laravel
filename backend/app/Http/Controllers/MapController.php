@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BloodRequest;
 use App\Models\DonorProfile;
 use App\Models\Hospital;
+use App\Models\RecipientProfile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -62,13 +63,13 @@ class MapController extends Controller
 
     public function markers(Request $request): JsonResponse
     {
-        $types = collect(explode(',', strtolower((string) $request->query('types', 'donor,request,hospital'))))
+        $types = collect(explode(',', strtolower((string) $request->query('types', 'donor,recipient,hospital'))))
             ->map(fn (string $type) => trim($type))
-            ->filter(fn (string $type) => in_array($type, ['donor', 'request', 'hospital'], true))
+            ->filter(fn (string $type) => in_array($type, ['donor', 'recipient', 'request', 'hospital'], true))
             ->values();
 
         if ($types->isEmpty()) {
-            $types = collect(['donor', 'request', 'hospital']);
+            $types = collect(['donor', 'recipient', 'hospital']);
         }
 
         $markers = collect();
@@ -76,6 +77,10 @@ class MapController extends Controller
         if ($types->contains('donor')) {
             $availableOnly = filter_var($request->query('available_only', '1'), FILTER_VALIDATE_BOOLEAN);
             $markers = $markers->concat($this->donorMarkers($request, $availableOnly));
+        }
+
+        if ($types->contains('recipient')) {
+            $markers = $markers->concat($this->recipientMarkers($request));
         }
 
         if ($types->contains('request')) {
@@ -95,6 +100,7 @@ class MapController extends Controller
                 'counts' => [
                     'total' => $markers->count(),
                     'donor' => $markers->where('type', 'donor')->count(),
+                    'recipient' => $markers->where('type', 'recipient')->count(),
                     'request' => $markers->where('type', 'request')->count(),
                     'hospital' => $markers->where('type', 'hospital')->count(),
                 ],
@@ -105,13 +111,14 @@ class MapController extends Controller
 
     private function donorMarkers(Request $request, bool $availableOnly): Collection
     {
+        $viewer = $request->user();
         $query = DonorProfile::query()->with('user');
 
         if ($availableOnly) {
             $query->where('availability_status', true);
         }
 
-        return $query->latest('id')->get()->map(function (DonorProfile $donor) use ($request) {
+        return $query->latest('id')->get()->map(function (DonorProfile $donor) use ($request, $viewer) {
             $lat = $donor->current_latitude ?? $donor->user?->latitude;
             $lng = $donor->current_longitude ?? $donor->user?->longitude;
 
@@ -128,6 +135,10 @@ class MapController extends Controller
                 'city' => $donor->city ?? $donor->user?->city,
                 'state' => $donor->state ?? $donor->user?->traditional_state,
                 'blood_group' => $donor->blood_group,
+                'medical_condition' => $donor->medical_conditions,
+                'emergency_contact' => $donor->emergency_contact,
+                'last_donation_date' => $donor->last_donation_date,
+                'is_self' => (bool) ($donor->user && $viewer && $donor->user->id === $viewer->id),
                 'is_available' => (bool) $donor->availability_status,
             ];
         })->filter()->values();
@@ -173,19 +184,76 @@ class MapController extends Controller
             ->values();
     }
 
+    private function recipientMarkers(Request $request): Collection
+    {
+        $viewer = $request->user();
+        return RecipientProfile::query()
+            ->with('user:id,name,is_recipient,latitude,longitude,city,traditional_state,address')
+            ->latest('id')
+            ->get()
+            ->map(function (RecipientProfile $recipient) use ($request, $viewer) {
+                $lat = $recipient->user?->latitude;
+                $lng = $recipient->user?->longitude;
+
+                if (!$recipient->user?->is_recipient) {
+                    return null;
+                }
+
+                if (!$this->isCoordinateValid($lat, $lng) || !$this->inBounds($request, (float) $lat, (float) $lng)) {
+                    return null;
+                }
+
+                $isSelf = (bool) ($recipient->user && $viewer && $recipient->user->id === $viewer->id);
+                $latestRequest = $isSelf
+                    ? BloodRequest::query()
+                        ->where('requester_id', $recipient->user->id)
+                        ->latest('id')
+                        ->first()
+                    : null;
+
+                return [
+                    'id' => $recipient->id,
+                    'type' => 'recipient',
+                    'name' => $recipient->user?->name ?? 'Recipient',
+                    'lat' => (float) $lat,
+                    'lng' => (float) $lng,
+                    'city' => $recipient->city ?? $recipient->user?->city,
+                    'state' => $recipient->state ?? $recipient->user?->traditional_state,
+                    'blood_group' => $recipient->blood_group,
+                    'address' => $recipient->address ?? $recipient->user?->address,
+                    'medical_condition' => $recipient->medical_condition,
+                    'emergency_contact' => $recipient->emergency_contact,
+                    'is_self' => $isSelf,
+                    'request_url' => $latestRequest ? route('requests.show', $latestRequest) : null,
+                    'is_available' => null,
+                ];
+            })
+            ->filter()
+            ->values();
+    }
+
     private function hospitalMarkers(Request $request): Collection
     {
+        $viewer = $request->user();
         return Hospital::query()
             ->with('user:id,latitude,longitude')
             ->latest('id')
             ->get()
-            ->map(function (Hospital $hospital) use ($request) {
+            ->map(function (Hospital $hospital) use ($request, $viewer) {
                 $lat = $hospital->latitude ?? $hospital->user?->latitude;
                 $lng = $hospital->longitude ?? $hospital->user?->longitude;
 
                 if (!$this->isCoordinateValid($lat, $lng) || !$this->inBounds($request, (float) $lat, (float) $lng)) {
                     return null;
                 }
+
+                $isSelf = (bool) ($hospital->user && $viewer && $hospital->user->id === $viewer->id);
+                $latestRequest = $isSelf
+                    ? BloodRequest::query()
+                        ->where('requester_id', $hospital->user->id)
+                        ->latest('id')
+                        ->first()
+                    : null;
 
                 return [
                     'id' => $hospital->id,
@@ -198,6 +266,8 @@ class MapController extends Controller
                     'blood_group' => null,
                     'address' => $hospital->address,
                     'verification_status' => $hospital->verification_status,
+                    'is_self' => $isSelf,
+                    'request_url' => $latestRequest ? route('hospital.requests.show', $latestRequest) : null,
                     'is_available' => null,
                 ];
             })

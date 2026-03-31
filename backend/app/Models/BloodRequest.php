@@ -41,7 +41,7 @@ class BloodRequest extends Model
 
     public function matchResults()
     {
-        return $this->hasMany(MatchResult::class);
+        return $this->hasMany(MatchResult::class, 'request_id');
     }
 
     public function confirmedDonor()
