@@ -25,6 +25,8 @@ COPY . .
 # Copy built frontend from Stage 1
 COPY --from=frontend /app/public/dist ./public/dist
 
+RUN touch database/database.sqlite
+RUN chmod -R 775 database storage bootstrap/cache
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
