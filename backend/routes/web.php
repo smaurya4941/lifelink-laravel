@@ -14,6 +14,7 @@ use App\Http\Controllers\SecurityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+//home page
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
