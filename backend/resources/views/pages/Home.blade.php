@@ -243,7 +243,7 @@
 </div>
 </div>
 <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-200/10 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-inter text-xs text-slate-500">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+<p class="font-inter text-xs text-slate-500">ï¿½ {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
 <div class="flex gap-6">
 <a class="text-slate-400 hover:text-rose-500 text-xs transition-all" href="#">Privacy Policy</a>
 <a class="text-slate-400 hover:text-rose-500 text-xs transition-all" href="#">Terms of Service</a>
