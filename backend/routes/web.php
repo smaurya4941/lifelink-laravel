@@ -20,7 +20,7 @@ Route::get('/', function () {
         return redirect()->route('dashboard');
     }
 
-    return view('pages.home');
+    return view('pages.Home');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
