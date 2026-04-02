@@ -29,6 +29,7 @@ RUN touch database/database.sqlite
 RUN chmod -R 775 database storage bootstrap/cache
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
+RUN php artisan migrate --force
 
 # Laravel setup
 RUN php artisan config:clear && \
