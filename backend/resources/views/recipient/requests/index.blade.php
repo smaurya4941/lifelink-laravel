@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -80,7 +80,7 @@ tailwind.config = {
   vertical-align: middle;
 }
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #b80035 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 body { font-family: 'Inter', sans-serif; }
 h1, h2, h3 { font-family: 'Manrope', sans-serif; }
@@ -123,7 +123,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
       <span class="material-symbols-outlined">dashboard</span>
       <span>Dashboard</span>
     </a>
-    <a class="flex items-center gap-3 rounded-xl bg-rose-100/50 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('requests.index') }}">
+    <a class="flex items-center gap-3 rounded-xl bg-slate-900/5 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('requests.index') }}">
       <span class="material-symbols-outlined">bloodtype</span>
       <span>Requests</span>
     </a>
@@ -147,7 +147,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
     </a>
   </nav>
   <div class="mt-auto space-y-1 pt-6">
-    <a href="#new-request" class="mb-4 block w-full rounded-xl bg-gradient-primary px-4 py-3 text-center text-sm font-bold text-on-primary shadow-lg shadow-primary/20 transition-transform active:scale-95">
+    <a href="#new-request" class="mb-4 block w-full rounded-xl bg-gradient-primary px-4 py-3 text-center text-sm font-bold text-on-primary shadow-sm transition-transform active:scale-95">
       Emergency Request
     </a>
     <a class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-500 hover:bg-slate-100" href="{{ route('notifications.index') }}">
@@ -385,7 +385,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
           </div>
 
           <div class="pt-4 md:col-span-2">
-            <button class="w-full rounded-xl bg-gradient-primary py-4 font-bold tracking-tight text-on-primary shadow-lg shadow-primary/20 transition-all hover:opacity-90" type="submit">
+            <button class="w-full rounded-xl bg-gradient-primary py-4 font-bold tracking-tight text-on-primary shadow-sm transition-all hover:opacity-90" type="submit">
               Initialize Dispatch Request
             </button>
           </div>
@@ -501,7 +501,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
     <div class="col-span-1 md:col-span-1">
       <h4 class="mb-4 text-lg font-bold text-slate-900">LifeLink</h4>
       <p class="text-xs text-slate-500">
-        © {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.
+        Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.
       </p>
     </div>
     <div class="space-y-4">
@@ -533,3 +533,6 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
 </footer>
 </body>
 </html>
+
+
+

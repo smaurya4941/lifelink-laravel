@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -99,7 +99,7 @@ h1, h2, h3 {
     </div>
     <div class="flex items-center space-x-4">
       <a class="hidden md:block font-headline font-bold text-sm tracking-tight text-slate-600 hover:text-rose-600 transition-all duration-300" href="{{ route('login') }}">Login</a>
-      <a href="{{ route('register') }}" class="bg-primary-container text-on-primary px-5 py-2 rounded-xl font-bold text-sm scale-95 active:opacity-80 transition-transform">Register</a>
+      <a href="{{ route('register') }}" class="bg-slate-900 text-white px-5 py-2 rounded-xl font-bold text-sm scale-95 active:opacity-80 transition-transform">Register</a>
       <div class="hidden md:flex items-center space-x-2 text-slate-400">
         <span class="material-symbols-outlined cursor-default">notifications</span>
         <span class="material-symbols-outlined cursor-default">account_circle</span>
@@ -110,8 +110,8 @@ h1, h2, h3 {
 
 <main class="min-h-screen pt-24 pb-16 px-4 md:px-8 flex items-center justify-center">
   <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden bg-surface-container-lowest rounded-3xl shadow-xl shadow-on-surface/5">
-    <div class="hidden md:flex md:col-span-5 relative overflow-hidden bg-primary items-center justify-center p-12">
-      <div class="absolute inset-0 opacity-40 bg-gradient-to-br from-primary via-primary-container to-rose-900"></div>
+    <div class="hidden md:flex md:col-span-5 relative overflow-hidden bg-slate-900 items-center justify-center p-12">
+      <div class="absolute inset-0 opacity-40 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700"></div>
       <img alt="Abstract medical visual" class="absolute inset-0 object-cover opacity-60 mix-blend-overlay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASn7ZZl53KzgrfBfWz0egMebrfM20VwD0xF9dIHJpJiW3pjgvvlP0wW8RE_LjIle_I4KSn6CAotdg0rrUQR3HB_jwE7GMIp2TDu4B1C5slc7Z7EiNWvLz6-oXvtrh2ubDmtWD0QG9gNY-j_vKrvil36iOXOMJ9SBZpK2eo6eOEPmYU3Wk8-9PPrQcUEK_gUZeVRyt1avVcglIxUzRhlrKopoC7HqD5w9q0NPkvlENRqlvGGH-qCaljNB0wHDaiDe-DNxy5Qcz-KQ"/>
       <div class="relative z-10 text-on-primary space-y-8">
         <div class="inline-flex items-center px-3 py-1 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
@@ -171,7 +171,7 @@ h1, h2, h3 {
             <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider ml-1" for="password">Password</label>
             <div class="relative">
               <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
-              <input id="password" name="password" class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-12 focus:ring-4 focus:ring-primary-fixed/50 transition-all placeholder:text-slate-400 text-on-surface font-medium" placeholder="••••••••••••" type="password" required autocomplete="new-password"/>
+              <input id="password" name="password" class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-12 focus:ring-4 focus:ring-primary-fixed/50 transition-all placeholder:text-slate-400 text-on-surface font-medium" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" type="password" required autocomplete="new-password"/>
               <button id="toggle-password" type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary" aria-label="Toggle password visibility" aria-controls="password" aria-pressed="false">
                 <span id="toggle-password-icon" class="material-symbols-outlined">visibility</span>
               </button>
@@ -196,7 +196,7 @@ h1, h2, h3 {
             </label>
           </div>
 
-          <button class="w-full py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary font-black text-sm uppercase tracking-widest rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-[0.98] transition-all" type="submit">
+          <button class="w-full py-5 bg-slate-900 text-on-primary font-black text-sm uppercase tracking-widest rounded-xl shadow-sm hover:shadow-primary/30 active:scale-[0.98] transition-all" type="submit">
             Create Account
           </button>
         </form>
@@ -256,7 +256,7 @@ h1, h2, h3 {
         <span class="material-symbols-outlined text-slate-400">mail</span>
         <span class="material-symbols-outlined text-slate-400">share</span>
       </div>
-      <p class="text-[10px] text-slate-400">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+      <p class="text-[10px] text-slate-400">Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -279,3 +279,5 @@ h1, h2, h3 {
 </script>
 </body>
 </html>
+
+

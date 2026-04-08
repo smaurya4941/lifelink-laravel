@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="scroll-smooth" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -97,7 +97,7 @@
 <div class="flex items-center space-x-4">
 <div class="flex space-x-2">
 <a href="{{ route('login') }}" class="px-4 py-2 rounded-lg text-rose-600 font-bold hover:bg-rose-50 transition-all scale-95 active:opacity-80">Login</a>
-<a href="{{ route('register') }}" class="px-5 py-2 rounded-lg bg-gradient-to-r from-primary to-primary-container text-white font-bold shadow-lg shadow-primary/20 scale-95 active:opacity-80 transition-all">Register</a>
+<a href="{{ route('register') }}" class="px-5 py-2 rounded-lg bg-slate-900 text-white font-bold shadow-sm scale-95 active:opacity-80 transition-all">Register</a>
 </div>
 </div>
 </div>
@@ -117,7 +117,7 @@
                         A real-time emergency coordination network bridging the gap between donors, recipients, and hospitals. Ensuring every drop counts when seconds matter most.
                     </p>
 <div class="flex flex-col sm:flex-row gap-4">
-<a href="{{ route('register') }}" class="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-xl shadow-primary/25 hover:translate-y-[-2px] transition-all flex items-center justify-center">
+<a href="{{ route('register') }}" class="px-8 py-4 bg-slate-900 text-on-primary font-bold rounded-xl shadow-sm hover:translate-y-[-2px] transition-all flex items-center justify-center">
                             Donate Now
                             <span class="material-symbols-outlined ml-2" style="font-variation-settings: 'FILL' 1;">favorite</span>
 </a>
@@ -170,7 +170,7 @@
 </a>
 </div>
 </div>
-<div class="lg:col-span-4 bg-primary-container text-on-primary-container rounded-[2rem] p-8 flex flex-col shadow-xl shadow-primary/20">
+<div class="lg:col-span-4 bg-slate-900 text-white rounded-[2rem] p-8 flex flex-col shadow-sm">
 <div class="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center mb-6">
 <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">emergency_share</span>
 </div>
@@ -204,7 +204,7 @@
 <h2 class="text-5xl lg:text-6xl font-black font-headline text-on-background mb-8">Ready to join the <span class="text-primary">pulse</span>?</h2>
 <p class="text-lg text-on-secondary-container mb-12">Whether you are a donor, a patient in need, or a healthcare institution, there is a place for you in our lifesaving mission.</p>
 <div class="flex flex-wrap justify-center gap-4">
-<a href="{{ route('register') }}" class="px-10 py-5 bg-primary text-white font-black font-headline rounded-2xl shadow-2xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all">Create Donor Account</a>
+<a href="{{ route('register') }}" class="px-10 py-5 bg-primary text-white font-black font-headline rounded-2xl shadow-sm hover:scale-105 active:scale-95 transition-all">Create Donor Account</a>
 <a href="{{ route('register.hospital') }}" class="px-10 py-5 bg-white text-on-surface font-black font-headline border-2 border-outline-variant/30 rounded-2xl hover:bg-surface-container-low transition-all">Institutional Portal</a>
 </div>
 </div>
@@ -243,7 +243,7 @@
 </div>
 </div>
 <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-slate-200/10 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="font-inter text-xs text-slate-500">� {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+<p class="font-inter text-xs text-slate-500">ï¿½ {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
 <div class="flex gap-6">
 <a class="text-slate-400 hover:text-rose-500 text-xs transition-all" href="#">Privacy Policy</a>
 <a class="text-slate-400 hover:text-rose-500 text-xs transition-all" href="#">Terms of Service</a>
@@ -252,3 +252,5 @@
 </footer>
 </body>
 </html>
+
+

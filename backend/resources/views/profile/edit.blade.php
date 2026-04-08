@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -141,7 +141,7 @@ input:focus, textarea:focus, select:focus {
     </a>
   </nav>
   <div class="mb-6 px-4">
-    <a href="{{ $profileUser->hasCapability('recipient') ? route('requests.create') : route('map.index') }}" class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary-container py-3 font-bold text-on-primary shadow-lg shadow-primary/20 transition-all active:scale-95">
+    <a href="{{ $profileUser->hasCapability('recipient') ? route('requests.create') : route('map.index') }}" class="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 font-bold text-on-primary shadow-sm transition-all active:scale-95">
       <span class="material-symbols-outlined text-sm">emergency</span>
       Request Emergency
     </a>
@@ -351,7 +351,7 @@ input:focus, textarea:focus, select:focus {
             </div>
           </div>
           <div class="flex justify-end pt-4">
-            <button form="password-update-form" class="flex items-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary-container px-8 py-2.5 font-bold text-on-primary shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95" type="submit">
+            <button form="password-update-form" class="flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-2.5 font-bold text-on-primary shadow-sm transition-all hover:brightness-110 active:scale-95" type="submit">
               <span class="material-symbols-outlined text-lg">lock_reset</span>
               Update Password
             </button>
@@ -458,7 +458,7 @@ input:focus, textarea:focus, select:focus {
       <a href="{{ route('profile.edit') }}" class="rounded-xl px-8 py-3 font-bold text-slate-500 transition-all hover:bg-slate-100 active:scale-95">
         Discard Changes
       </a>
-      <button class="flex items-center gap-3 rounded-xl bg-gradient-to-br from-primary to-primary-container px-10 py-3 font-bold text-on-primary shadow-lg shadow-primary/20 transition-all hover:brightness-110 active:scale-95" type="submit">
+      <button class="flex items-center gap-3 rounded-xl bg-slate-900 px-10 py-3 font-bold text-on-primary shadow-sm transition-all hover:brightness-110 active:scale-95" type="submit">
         <span class="material-symbols-outlined">save</span>
         Save Profile
       </button>
@@ -477,7 +477,7 @@ input:focus, textarea:focus, select:focus {
 </form>
 
 <footer class="ml-64 mt-auto flex w-auto max-w-7xl flex-col justify-between px-12 py-8 text-xs text-slate-500 md:flex-row">
-  <div class="mb-4 md:mb-0">© {{ date('Y') }} LifeLink Health. All rights reserved.</div>
+  <div class="mb-4 md:mb-0">Â© {{ date('Y') }} LifeLink Health. All rights reserved.</div>
   <div class="flex gap-8">
     <a class="text-slate-400 transition-colors hover:text-rose-500" href="#">Privacy Policy</a>
     <a class="text-slate-400 transition-colors hover:text-rose-500" href="#">Terms of Service</a>
@@ -487,3 +487,5 @@ input:focus, textarea:focus, select:focus {
 </footer>
 </body>
 </html>
+
+

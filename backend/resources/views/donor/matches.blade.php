@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -111,7 +111,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
         <span>Requests</span>
       </a>
     @endif
-    <a class="flex items-center gap-3 rounded-xl bg-rose-100/50 px-4 py-3 text-sm font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('matches.index') }}">
+    <a class="flex items-center gap-3 rounded-xl bg-slate-900/5 px-4 py-3 text-sm font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('matches.index') }}">
       <span class="material-symbols-outlined">swap_horiz</span>
       <span>Matches</span>
     </a>
@@ -251,7 +251,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
               <div class="mt-8 flex items-center gap-3">
                 <form class="flex-1" method="POST" action="{{ route('matches.accept', $match) }}">
                   @csrf
-                  <button class="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-container py-3 font-bold text-on-primary shadow-md transition-all hover:opacity-90 active:scale-95" type="submit">
+                  <button class="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 py-3 font-bold text-on-primary shadow-md transition-all hover:opacity-90 active:scale-95" type="submit">
                     <span class="material-symbols-outlined">check_circle</span>
                     Accept Match
                   </button>
@@ -266,7 +266,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
               </div>
             @elseif($match->status === 'accepted')
               <div class="mt-6 flex items-center gap-3">
-                <span class="flex-1 rounded-lg bg-gradient-to-r from-primary to-primary-container py-3 text-center font-bold text-on-primary">Accepted Match</span>
+                <span class="flex-1 rounded-lg bg-slate-900 py-3 text-center font-bold text-on-primary">Accepted Match</span>
                 <a href="{{ $request ? route('requests.show', $request) : route('matches.index') }}" class="rounded-lg bg-secondary-container px-4 py-3 text-on-secondary-container">
                   <span class="material-symbols-outlined">more_vert</span>
                 </a>
@@ -402,9 +402,11 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
       <a class="block text-xs text-slate-400 transition-colors hover:text-rose-500" href="#">Global Directory</a>
     </div>
     <div class="flex items-end justify-end">
-      <p class="text-xs text-slate-500 opacity-60">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+      <p class="text-xs text-slate-500 opacity-60">Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
     </div>
   </div>
 </footer>
 </body>
 </html>
+
+

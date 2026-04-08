@@ -84,7 +84,7 @@
         border: 1px solid rgba(229, 189, 190, 0.15);
       }
       .primary-gradient {
-        background: linear-gradient(135deg, #b80035 0%, #e11d48 100%);
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       }
 </style>
 </head>
@@ -146,7 +146,7 @@
 <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary" id="remember" type="checkbox" name="remember" @checked(old('remember'))/>
 <label class="text-sm text-on-secondary-container" for="remember">Stay logged in for 30 days</label>
 </div>
-<button class="w-full primary-gradient text-on-primary font-headline font-bold py-4 rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" type="submit">
+<button class="w-full primary-gradient text-on-primary font-headline font-bold py-4 rounded-xl shadow-sm hover:scale-[1.02] active:scale-95 transition-all" type="submit">
                                 Sign In to LifeLink
                             </button>
 </form>
@@ -267,6 +267,9 @@
 })();
 </script></body>
 </html>
+
+
+
 
 
 

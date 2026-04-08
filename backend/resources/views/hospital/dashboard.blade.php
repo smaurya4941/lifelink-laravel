@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -112,7 +112,7 @@ tailwind.config = {
   </div>
 
   <nav class="flex-1 space-y-1">
-    <a class="flex items-center space-x-3 rounded-xl bg-rose-100/50 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('hospital.dashboard') }}">
+    <a class="flex items-center space-x-3 rounded-xl bg-slate-900/5 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('hospital.dashboard') }}">
       <span class="material-symbols-outlined">dashboard</span>
       <span class="text-sm">Dashboard</span>
     </a>
@@ -261,7 +261,7 @@ tailwind.config = {
               <div class="flex h-14 w-14 items-center justify-center rounded-xl {{ $urgencyBadge }} font-black text-xl">{{ $req->blood_group }}</div>
               <div>
                 <p class="font-bold text-on-surface">{{ $req->patient_name ?: 'Emergency Transfusion Support' }}</p>
-                <p class="text-xs text-on-secondary-container">Request #REQ-{{ $req->id }} • {{ $req->hospital_name }}</p>
+                <p class="text-xs text-on-secondary-container">Request #REQ-{{ $req->id }} â€¢ {{ $req->hospital_name }}</p>
               </div>
             </div>
             <div class="text-right">
@@ -326,7 +326,7 @@ tailwind.config = {
               <div class="mt-1 flex items-center space-x-2">
                 <span class="material-symbols-outlined text-sm {{ $hospital->isVerified() ? 'text-tertiary' : ($hospital->verification_status === 'rejected' ? 'text-error' : 'text-amber-600') }}" style="font-variation-settings: 'FILL' 1;">verified</span>
                 <span class="text-xs font-bold text-on-surface">
-                  {{ ucfirst($hospital->verification_status) }}{{ $hospital->verified_at ? ' • '.$hospital->verified_at->format('Y-m-d') : '' }}
+                  {{ ucfirst($hospital->verification_status) }}{{ $hospital->verified_at ? ' â€¢ '.$hospital->verified_at->format('Y-m-d') : '' }}
                 </span>
               </div>
             </div>
@@ -411,7 +411,7 @@ tailwind.config = {
     </div>
   </div>
   <div class="mx-auto mt-12 flex max-w-7xl flex-col items-center justify-between border-t border-slate-200/10 pt-8 md:flex-row">
-    <p class="text-xs text-slate-500">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+    <p class="text-xs text-slate-500">Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
     <div class="mt-4 flex space-x-6 md:mt-0">
       <span class="text-[10px] font-bold uppercase text-tertiary">System Status: Operational</span>
       <span class="text-[10px] font-bold uppercase text-slate-400">hospital-workspace</span>
@@ -420,3 +420,5 @@ tailwind.config = {
 </footer>
 </body>
 </html>
+
+

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -80,7 +80,7 @@ tailwind.config = {
   vertical-align: middle;
 }
 .bg-gradient-primary {
-  background: linear-gradient(135deg, #b80035 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 body { font-family: 'Inter', sans-serif; }
 h1, h2, h3 { font-family: 'Manrope', sans-serif; }
@@ -118,7 +118,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
       <span class="material-symbols-outlined">dashboard</span>
       <span>Dashboard</span>
     </a>
-    <a class="flex items-center gap-3 rounded-xl bg-rose-100/50 px-4 py-3 font-bold text-rose-700" href="{{ route('requests.index') }}">
+    <a class="flex items-center gap-3 rounded-xl bg-slate-900/5 px-4 py-3 font-bold text-rose-700" href="{{ route('requests.index') }}">
       <span class="material-symbols-outlined">bloodtype</span>
       <span>Requests</span>
     </a>
@@ -142,7 +142,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
     </a>
   </nav>
   <div class="mt-auto space-y-1 pt-6">
-    <a href="{{ route('requests.index') }}#new-request" class="mb-4 block w-full rounded-xl bg-gradient-primary px-4 py-3 text-center text-sm font-bold text-on-primary shadow-lg shadow-primary/20 transition-transform active:scale-95">
+    <a href="{{ route('requests.index') }}#new-request" class="mb-4 block w-full rounded-xl bg-gradient-primary px-4 py-3 text-center text-sm font-bold text-on-primary shadow-sm transition-transform active:scale-95">
       Emergency Request
     </a>
     <form method="POST" action="{{ route('logout') }}">
@@ -196,7 +196,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
               <span class="rounded-lg bg-white/15 px-3 py-1.5 text-sm font-bold">{{ $bloodRequest->blood_group }}</span>
             </div>
             <h3 class="text-3xl font-black">{{ $bloodRequest->patient_name ?: ($bloodRequest->contact_person ?: 'Unnamed Patient') }}</h3>
-            <p class="mt-2 text-sm text-rose-100 opacity-90">REQ-{{ str_pad((string) $bloodRequest->id, 4, '0', STR_PAD_LEFT) }} • {{ $bloodRequest->hospital_name }}</p>
+            <p class="mt-2 text-sm text-rose-100 opacity-90">REQ-{{ str_pad((string) $bloodRequest->id, 4, '0', STR_PAD_LEFT) }} â€¢ {{ $bloodRequest->hospital_name }}</p>
           </div>
           <div class="absolute -bottom-6 -right-6 opacity-10">
             <span class="material-symbols-outlined text-[120px]">bloodtype</span>
@@ -230,7 +230,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
             </div>
             <div>
               <p class="text-xs font-bold uppercase tracking-widest text-on-secondary-container">Contact</p>
-              <p class="mt-2 text-sm text-on-surface">{{ $bloodRequest->contact_person ?: 'No contact person' }}{{ $bloodRequest->contact_phone ? ' • '.$bloodRequest->contact_phone : '' }}</p>
+              <p class="mt-2 text-sm text-on-surface">{{ $bloodRequest->contact_person ?: 'No contact person' }}{{ $bloodRequest->contact_phone ? ' â€¢ '.$bloodRequest->contact_phone : '' }}</p>
             </div>
             @if($bloodRequest->notes || $bloodRequest->description)
               <div class="md:col-span-2">
@@ -303,7 +303,7 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
                   <input type="hidden" name="match_id" value="{{ $match->id }}">
                   <div class="flex flex-col gap-3 md:flex-row">
                     <input type="text" name="confirmation_notes" class="w-full rounded-xl border-0 bg-white px-4 py-3 text-sm ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary" placeholder="Confirmation notes for the donor">
-                    <button class="rounded-xl bg-gradient-primary px-5 py-3 text-sm font-bold text-on-primary shadow-lg shadow-primary/20" type="submit">
+                    <button class="rounded-xl bg-gradient-primary px-5 py-3 text-sm font-bold text-on-primary shadow-sm" type="submit">
                       Confirm Donor
                     </button>
                   </div>
@@ -374,3 +374,6 @@ h1, h2, h3 { font-family: 'Manrope', sans-serif; }
 </main>
 </body>
 </html>
+
+
+

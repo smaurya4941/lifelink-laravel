@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -81,7 +81,7 @@ body { font-family: Inter, sans-serif; }
     <a class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100" href="{{ route('security.dashboard') }}"><span class="material-symbols-outlined">settings</span>Settings</a>
   </nav>
   <div class="space-y-2 border-t border-slate-200 pt-4">
-    <a href="{{ $isRecipient ? route('requests.create') : route('dashboard') }}" class="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-primary to-primary-container px-4 py-3 text-sm font-bold text-white shadow-lg shadow-rose-200"><span class="material-symbols-outlined text-sm">emergency</span>Request Emergency</a>
+    <a href="{{ $isRecipient ? route('requests.create') : route('dashboard') }}" class="flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-sm font-bold text-white shadow-sm"><span class="material-symbols-outlined text-sm">emergency</span>Request Emergency</a>
     <form method="POST" action="{{ route('logout') }}">
       @csrf
       <button class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-500 hover:bg-slate-100" type="submit"><span class="material-symbols-outlined">logout</span>Sign Out</button>
@@ -99,7 +99,7 @@ body { font-family: Inter, sans-serif; }
       <h1 class="font-headline text-4xl font-extrabold tracking-tight">Network Map</h1>
       <p class="mt-3 max-w-2xl text-base font-medium leading-relaxed text-slate-600">Leaflet-powered live map for donors, recipients, and hospitals. Use popup actions to inspect markers, open your request, and draw route lines from your location to donors or hospitals.</p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <button id="locate-me-btn" class="rounded-xl bg-primary px-5 py-3 font-bold text-white" type="button">Center On Me</button>
+        <button id="locate-me-btn" class="rounded-xl bg-slate-900 px-5 py-3 font-bold text-white" type="button">Center On Me</button>
         <button id="refresh-map-btn" class="rounded-xl bg-surface-high px-5 py-3 font-bold text-slate-700" type="button">Refresh Live Data</button>
         <button id="reset-view-btn" class="rounded-xl border border-slate-200 bg-white px-5 py-3 font-bold text-slate-600" type="button">Reset View</button>
       </div>
@@ -199,7 +199,7 @@ body { font-family: Inter, sans-serif; }
 </main>
 
 <footer class="ml-64 px-12 py-8 text-xs text-slate-500">
-  © {{ date('Y') }} LifeLink Health. All rights reserved.
+  Â© {{ date('Y') }} LifeLink Health. All rights reserved.
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -493,3 +493,5 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
+

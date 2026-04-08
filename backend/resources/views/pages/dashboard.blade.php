@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light" lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -105,7 +105,7 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
   </div>
 
   <nav class="flex-1 space-y-1">
-    <a class="flex items-center gap-3 rounded-xl bg-rose-100/50 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('dashboard') }}">
+    <a class="flex items-center gap-3 rounded-xl bg-slate-900/5 px-4 py-3 font-bold text-rose-700 transition-transform duration-200 hover:translate-x-1" href="{{ route('dashboard') }}">
       <span class="material-symbols-outlined">dashboard</span>
       <span class="text-sm">Dashboard</span>
     </a>
@@ -146,7 +146,7 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
   </nav>
 
   <div class="mt-auto space-y-1 pt-6">
-    <a href="{{ $primaryActionRoute }}" class="mb-4 block w-full rounded-xl bg-gradient-to-br from-primary to-primary-container px-4 py-3 text-center text-sm font-bold text-on-primary shadow-lg shadow-primary/20 transition-transform active:scale-95">
+    <a href="{{ $primaryActionRoute }}" class="mb-4 block w-full rounded-xl bg-slate-900 px-4 py-3 text-center text-sm font-bold text-on-primary shadow-sm transition-transform active:scale-95">
       {{ $primaryActionLabel }}
     </a>
 
@@ -217,7 +217,7 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
         <h1 class="text-4xl font-headline font-extrabold tracking-tight text-on-surface">Welcome back, {{ $user->name }}</h1>
         <p class="max-w-xl text-lg text-on-secondary-container">{{ $heroLine }}</p>
         <div class="flex flex-wrap gap-4 pt-2">
-          <a href="{{ $primaryActionRoute }}" class="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-on-primary shadow-lg shadow-primary/10 transition-all hover:bg-primary-container active:scale-95">
+          <a href="{{ $primaryActionRoute }}" class="flex items-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-on-primary shadow-lg shadow-slate-200/70 transition-all hover:bg-slate-800 active:scale-95">
             <span class="material-symbols-outlined text-lg">{{ $isRecipient ? 'add_circle' : 'swap_horiz' }}</span>
             {{ $primaryActionLabel }}
           </a>
@@ -339,7 +339,7 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
                   @if(!empty($activity['actions']))
                     <div class="flex flex-wrap gap-3 pt-3">
                       @foreach($activity['actions'] as $action)
-                        <a href="{{ $action['href'] }}" class="{{ $action['tone'] === 'primary' ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant' }} rounded-lg px-4 py-1.5 text-xs font-bold">
+                        <a href="{{ $action['href'] }}" class="{{ $action['tone'] === 'primary' ? 'bg-slate-900 text-white' : 'bg-surface-container-low text-on-surface-variant' }} rounded-lg px-4 py-1.5 text-xs font-bold">
                           {{ $action['label'] }}
                         </a>
                       @endforeach
@@ -434,7 +434,7 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
       </div>
     </div>
     <div class="mx-auto mt-12 max-w-7xl border-t border-slate-200/20 pt-8">
-      <p class="text-xs text-slate-500">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+      <p class="text-xs text-slate-500">Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
     </div>
   </footer>
 </main>
@@ -476,3 +476,5 @@ h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
 </nav>
 </body>
 </html>
+
+

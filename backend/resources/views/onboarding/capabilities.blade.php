@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -76,7 +76,7 @@ tailwind.config = {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 .bg-vital-gradient {
-  background: linear-gradient(135deg, #b80035 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 .capability-card.active {
   transform: translateY(-4px);
@@ -250,7 +250,7 @@ tailwind.config = {
       </div>
     </div>
     <div class="col-span-1 flex flex-col justify-end">
-      <p class="text-xs text-slate-500">© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
+      <p class="text-xs text-slate-500">Â© {{ date('Y') }} LifeLink Vital Pulse. All rights reserved.</p>
     </div>
   </div>
 </footer>
@@ -277,3 +277,6 @@ tailwind.config = {
 </script>
 </body>
 </html>
+
+
+
